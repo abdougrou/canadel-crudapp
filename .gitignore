@@ -1,1 +1,8 @@
+WebAPI/bin/
+WebAPI/obj/
+*.dll
+*.exe
+
+*.cache
+
 .vs/
