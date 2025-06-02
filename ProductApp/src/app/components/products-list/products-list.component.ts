@@ -56,8 +56,6 @@ export class ProductsListComponent implements OnInit {
       // If a product is selected I will send the change to database
       this.productService.updateProduct(this.selectedProduct.id, productData).subscribe({
         next: (res) => {
-          console.log(res);
-          console.log(productData);
           this.loadProducts();
           this.closeForm();
         },
@@ -67,7 +65,6 @@ export class ProductsListComponent implements OnInit {
       });
     } else {
       // Create new product
-      console.log(productData);
       this.productService.createProduct(productData as Omit<Product, 'id' | 'createdAt'>).subscribe({
         next: () => {
           this.loadProducts();
