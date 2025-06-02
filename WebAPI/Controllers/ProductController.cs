@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -77,6 +78,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            product.CreatedAt = DateTime.Now;
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 

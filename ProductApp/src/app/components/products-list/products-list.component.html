@@ -1,0 +1,83 @@
+<div class="container mx-auto px-4 py-8">
+    <!--------------- HEADER ---------------->
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Products</h1>
+        <button
+            (click)="openCreateForm()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2"
+        >
+            Create Product
+        </button>
+    </div>
+
+    <!------------- PRODUCT LIST ----------------->
+    <div *ngIf=" products.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let product of products" class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="text-lg font-semibold text-gray-900 truncate">{{ product.name }}</h3>
+                    <span class="text-xl font-bold text-green-600">${{ product.price.toFixed(2) }}</span>
+                </div>  
+
+                <p *ngIf="product.description" class="text-gray-600 text-sm mb-4 line-clamp-3">
+                    {{ product.description }}
+                </p>
+                <p *ngIf="!product.description" class="text-gray-400 text-sm mb-4 italic">
+                    No description available
+                </p>    
+
+                <div class="flex justify-between items-center text-xs text-gray-500 mb-4">
+                    <span>ID: {{ product.id }}</span>
+                    <span>Created: {{ formatDate(product.createdAt) }}</span>
+                </div>   
+
+                <div class="flex gap-2">
+                    <button
+                        (click)="editProduct(product)"
+                        class="flex-1 bg-blue-50 hover:bg-blue-100 text-blue-700 font-medium py-2 px-3 rounded-md transition-colors flex items-center justify-center gap-2"
+                    >
+                      Edit
+                    </button>
+                    <button
+                        (click)="deleteProduct(product)"
+                        class="flex-1 bg-red-50 hover:bg-red-100 text-red-700 font-medium py-2 px-3 rounded-md transition-colors flex items-center justify-center gap-2"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!------------- PRODUCT FORM POPUP -------------->
+    <app-product-form
+      [isVisible]="showForm"
+      [product]="selectedProduct"
+      (save)="saveProduct($event)"
+      (cancel)="closeForm()"
+    ></app-product-form>
+
+    <!------------- DELETE POPUP --------------->
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" *ngIf="showDeletePopup">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Delete Product</h3>
+            <p class="text-sm text-gray-500 mb-6">
+                Are you sure you want to delete "{{ productToDelete?.name }}"? This action cannot be undone.
+            </p>
+            <div class="flex gap-3 justify-end">
+                <button
+                    (click)="closeDeletePopup()"
+                    class="px-4 py-2 text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors"
+                >
+                    Cancel
+                </button>
+                <button
+                    (click)="confirmDelete()"
+                    class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                >
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
