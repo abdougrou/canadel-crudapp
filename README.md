@@ -21,6 +21,20 @@ J’ai construit l’application demandée dans le cadre du test technique de Ca
 
 ---
 
+## Tester l'application
+
+L'API et la base de données sont **fonctionnelles** et hébergées sur Azure.  
+Vous pouvez les tester en lançant le client Angular en local.
+
+### Étapes pour tester le client :
+1. Ouvrez un terminal dans le dossier `ProductApp`
+2. Exécutez la commande suivante :
+   ```bash
+   npm start
+   ```
+
+---
+
 ## Interface et technologies
 
 - Le design a été fait avec **Angular 19**.
