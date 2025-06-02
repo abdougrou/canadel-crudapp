@@ -32,8 +32,8 @@ jobs:
 
       - name: Zip artifact for deployment
         run: |
-          cd ProductApp/dist
-          zip -r ../../release.zip ./
+          cd ProductApp/dist/product-app/browser
+          zip -r ../../release.zip .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -58,7 +58,7 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip -d app
+        run: unzip release.zip
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -73,5 +73,5 @@ jobs:
         with:
           app-name: 'AngularClientApp'
           slot-name: 'Production'
-          package: ./ProductApp/dist/product-app/browser
+          package: .
           
