@@ -53,6 +53,10 @@ export class ProductsListComponent implements OnInit {
   // Submit The product creation form
   saveProduct(productData: Partial<Product>) {
     if (this.selectedProduct) {
+      // Store static data
+      productData.id = this.selectedProduct.id;
+      productData.createdAt = this.selectedProduct.createdAt;
+      
       // If a product is selected I will send the change to database
       this.productService.updateProduct(this.selectedProduct.id, productData).subscribe({
         next: (res) => {
