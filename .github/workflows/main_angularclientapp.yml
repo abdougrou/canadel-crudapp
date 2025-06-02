@@ -27,7 +27,7 @@ jobs:
         working-directory: ./ProductApp
         run: |
           npm install
-          npm run build --if-present
+          npx ng build --base-href=/
           echo "Skipping tests for now"
 
       - name: Zip artifact for deployment
@@ -73,5 +73,5 @@ jobs:
         with:
           app-name: 'AngularClientApp'
           slot-name: 'Production'
-          package: app
+          package: ./ProductApp/dist/product-app/browser
           
