@@ -30,32 +30,6 @@ jobs:
           npx ng build --base-href=/
           echo "Skipping tests for now"
 
-      - name: Add web.config for Azure routing
-        run: |
-          cat <<EOF > ./dist/product-app/browser/web.config
-          <?xml version="1.0" encoding="utf-8"?>
-          <configuration>
-            <system.webServer>
-              <rewrite>
-                <rules>
-                  <rule name="Angular Routes" stopProcessing="true">
-                    <match url=".*" />
-                    <conditions logicalGrouping="MatchAll">
-                      <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
-                      <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
-                    </conditions>
-                    <action type="Rewrite" url="/index.html" />
-                  </rule>
-                </rules>
-              </rewrite>
-              <staticContent>
-                <mimeMap fileExtension=".json" mimeType="application/json" />
-                <mimeMap fileExtension=".webmanifest" mimeType="application/manifest+json" />
-              </staticContent>
-            </system.webServer>
-          </configuration>
-          EOF
-
       - name: Zip artifact for deployment
         working-directory: ./ProductApp
         run: |
